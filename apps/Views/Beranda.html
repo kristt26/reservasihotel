@@ -1,0 +1,71 @@
+<div ng-init="Init()">
+    <!-- Content Header (Page header) -->
+    <div class="col s12 center-align"><span class="flow-text">SELAMAT DATANG DI WEBSITE RESERVASI <BR> HOTEL PERMATA</span></div>
+    <div class="carousel" style="border: 1px;">
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/1.png"></a>
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/2.png"></a>
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/3.png"></a>
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/4.png"></a>
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/5.png"></a>
+        <a class="carousel-item" href=""><img class="materialboxed" src="dist/img/corousel/6.png"></a>
+    </div>
+    <section class="content">
+
+        <div class="col s12 left-align"><span class="flow-text">Fasilitas Hotel</span></div>
+        <div class="row">
+            <div class="col s3 center-align">
+                <h4><a><i class="fa fa-adn"></i></a> <br>
+                    <a href="#">
+                        <font size="3px">AC</font>
+                    </a>
+                </h4>
+            </div>
+            <div class="col s3 center-align">
+                <h4><a><i class="fa fa-car"></i></a> <br>
+                    <a href="#">
+                        <font size="3px">Parking</font>
+                    </a>
+                </h4>
+            </div>
+            <div class="col s3 center-align">
+                <h4><a><i class="fa fa-clock-o"></i></a> <br>
+                    <a href="#">
+                        <font size="3px">24-Hour Front Desk</font>
+                    </a>
+                </h4>
+            </div>
+            <div class="col s3 center-align">
+                <h4><a><i class="fa fa-spoon"></i></a> <br>
+                    <a href="#">
+                        <font size="3px">Restorant</font>
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <div class="col s12 left-align"><span class="flow-text">Reservasi</span></div>
+        <div class="row">
+            <div class="col-lg-3 col-xs-4" ng-repeat="item in DatasKamar">
+                <a href="" ng-show="item.Status=='true'">
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{item.NomorKamar}}</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-checkmark-round"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="small-box bg-red" ng-show="item.Status=='false'">
+                    <div class="inner">
+                        <h3>{{item.NomorKamar}}</h3>
+                        <p>New Orders</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-close"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

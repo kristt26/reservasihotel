@@ -1,0 +1,116 @@
+<div ng-init="Init()">
+    <section class="content">
+        <div class="row">
+            <div class="box box-warning" ng-show="ShowBiodata">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Biodata Diri</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body col s6">
+                    <form role="form">
+                        <!-- text input -->
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="Nama" type="text" class="validate" ng-model="Biodata.Nama">
+                            <label for="Nama">Nama Lengkap</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">contact_phone</i>
+                            <input id="Kontak" type="text" class="validate">
+                            <label for="Kontak">Kontak</label>
+                        </div>
+
+                        <!-- textarea -->
+                        <div class="input-field">
+                            <i class="material-icons prefix">home</i>
+                            <textarea id="Alamat" class="materialize-textarea" rows="3"></textarea>
+                            <label for="Alamat">Alamat</label>
+                        </div>
+                        <div class="form-group">
+                            <i class="material-icons prefix">wc</i>
+                            <label>
+                                <input name="group1" class="with-gap" type="radio" />
+                                <span>Pria</span>
+                            </label>
+                            <label>
+                                <input name="group1" class="with-gap" type="radio" />
+                                <span>Wanita</span>
+                            </label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">email</i>
+                            <input id="Email" type="email" class="validate">
+                            <label for="Email">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <button type="button" class="btn btn-outline" ng-click="Next()">Next</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <br>
+            <div class="box box-warning" ng-show="ShowTanggal">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tanggal Checkin dan Checkout</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body col s6">
+                    <form role="form">
+                        <!-- text input -->
+                        <div class="input-field">
+                            <i class="material-icons prefix">date_range</i>
+                            <input id="Checkin" type="date" ng-model="TanggalCheckin">
+                            <label for="Checkin">Tanggal Checkin</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">date_range</i>
+                            <input id="Checkout" type="date" ng-model="TanggalCheckout">
+                            <label for="Checkout">Tanggal Checkout</label>
+                        </div>
+                        <div class="input-field">
+                            <button type="button" class="btn btn-outline" ng-click="Next()">Back</button>
+                            <button type="button" class="btn btn-outline" ng-click="Kamar()">Next</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="box box-warning" ng-show="ShowKamar">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pilih Kamar</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-lg-3 col-xs-4" ng-repeat="item in DatasKamar">
+                    <a href="" ng-show="item.Status=='true'" ng-click="ColorStyle(item)">
+                        <div ng-class="{'small-box bg-aqua': item.Color=='aqua', 'small-box bg-blue': item.Color=='blue'}">
+                            <div class="inner">
+                                <h3>{{item.NomorKamar}}</h3>
+                                <p>{{item.Description}}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-checkmark-round"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="small-box bg-red" ng-show="item.Status=='false'">
+                        <div class="inner">
+                            <h3>{{item.NomorKamar}}</h3>
+                            <p>{{item.Description}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-android-close"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="input-field">
+                <button type="button" class="btn btn-outline" ng-click="Next()">Back</button>
+                <button type="button" class="btn btn-outline" ng-click="Proses()">Finish</button>
+            </div>
+
+        </div>
+    </section>
+</div>
