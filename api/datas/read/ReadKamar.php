@@ -7,12 +7,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once '../../../api/config/database.php';
 include_once '../../../api/objects/Kamar.php';
 include_once '../../../api/objects/Pesanan.php';
+include_once '../../../api/objects/DetailPesanan.php';
 date_default_timezone_set('Asia/Seoul');
 
 $database = new Database();
 $db = $database->getConnection();
 $kamar = new Kamar($db);
 $pesanan = new Pesanan($db);
+$detail = new DetailPesanan($db);
 $data =json_decode(file_get_contents("php://input"));
 $a = new DateTime($data->TanggalCheckin);
 $aa=str_replace('-', '/', $a->format('Y-m-d'));
@@ -35,21 +37,55 @@ if($num>0)
         $stmtpesanan = $pesanan->readByStatus();
         $numpesanan = $stmtpesanan->rowCount();
         if($numpesanan==0){
+            
             $ItemKamar = array(
                 'IdKamar' => $IdKamar,
                 'NomorKamar' => $NomorKamar,
+                'Harga' => $Harga,
                 'Description' => $Description,
                 'Status' => 'true',
                 'Color' => 'aqua', 
             );
         }else {
-            $ItemKamar = array(
-                'IdKamar' => $IdKamar,
-                'NomorKamar' => $NomorKamar,
-                'Description' => $Description,
-                'Status' => 'false',
-                'Color' => 'red'  
-            );
+            $ketersediankamar = false;
+            while ($rowPesanan =  $stmtpesanan->fetch(PDO::FETCH_ASSOC)) {
+                extract($rowPesanan);
+                $detail->IdPesanan = $IdPesanan;
+                $stmtKamar = $detail->readByPesanan();
+                $detail->IdPesanan = $IdPesanan;
+                $stmtDetail = $detail->readById();
+                $length = count($stmtDetail) ;
+                if($length!=0)
+                {
+                    
+                    foreach ($stmtDetail as &$value) {
+                        if($value["IdKamar"]==$IdKamar)
+                        {
+                            $ketersediankamar=true;
+                        }
+                    }
+                                    
+                }
+            }
+            if($ketersediankamar==true){
+                $ItemKamar = array(
+                    'IdKamar' => $IdKamar,
+                    'NomorKamar' => $NomorKamar,
+                    'Harga' => $Harga,
+                    'Description' => $Description,
+                    'Status' => 'false',
+                    'Color' => 'red'  
+                );
+            }else{
+                $ItemKamar = array(
+                    'IdKamar' => $IdKamar,
+                    'NomorKamar' => $NomorKamar,
+                    'Harga' => $Harga,
+                    'Description' => $Description,
+                    'Status' => 'true',
+                    'Color' => 'aqua', 
+                );
+            }    
         }
         
         array_push($Datas["record"], $ItemKamar);

@@ -3,6 +3,7 @@ class Customer
 {
     private $conn;
     private $table_name = "customer";
+    public $IdCustomer;
     public $NamaCustomer;
     public $Kontak;
     public $Alamat;
@@ -41,6 +42,7 @@ class Customer
         $stmt->bindParam(4, $this->Sex);
         $stmt->bindParam(5, $this->Email);
         if($stmt->execute()){
+            $this->IdCustomer = $this->conn->lastInsertId();
             return true;
         }else {
             return false;

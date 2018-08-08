@@ -1,0 +1,171 @@
+<div class="row" ng-init="Init()">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">TRANSAKSI</h3>
+                <div class="pull-right">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Kode Boking</label>
+                        <input type="text" class="form-control col-md-6" ng-model="DataPesanan.KodePesanan" ng-keyup="complete(DataPesanan.KodePesanan)" placeholder="Enter Code Boking" required>
+                        <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                            <li class="list-group-item" ng-repeat="itemPesanan in filterPesanan" ng-click="fillTextbox(itemPesanan)">{{itemPesanan.KodePesanan}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <form>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">Data Boking</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="TanggalPesan" class="col-sm-4 control-label">Tanggal Pesan</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="TanggalPesan" ng-model="DataPesanan.TanggalPesan" placeholder="Tanggal Pesan" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="TanggalCheckin" class="col-sm-4 control-label">Tanggal Checkin</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="TanggalCheckin" ng-model="DataPesanan.TanggalCheckin" placeholder="Tanggal Checkin" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="TanggalCheckout" class="col-sm-4 control-label">Tanggal Checkout</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="TanggalCheckout" ng-model="DataPesanan.TanggalCheckout" placeholder="Tanggal Checkout" disabled>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group" ng-show="PilihanBayar">
+                                            <i class="col-sm-4">Pembayaran: &nbsp;</i>
+                                            <div class="col-sm-6">
+                                                <input name="group1" class="with-gap" value="Bayar" type="radio" ng-model="StatusPembayaran" ng-click="ProsesBayar()" />
+                                                <i style="color: black;">Bayar</i>
+                                                <input name="group1" class="with-gap" value="Tunda" type="radio" ng-model="StatusPembayaran" ng-click="ProsesBayar()" />
+                                                <i style="color: black;">Tunda</i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-hide="PilihanBayar" ng-show="SudahBayar">
+                                            <i class="col-sm-4">Pembayaran: &nbsp;</i>
+                                            <div class="col-sm-6">
+                                                <input name="group2" class="with-gap" value="Bayar" type="radio" ng-model="StatusPembayaran" ng-click="ProsesBayar()" disabled/>
+                                                <i style="color: black;">Bayar</i>
+                                                <input name="group2" class="with-gap" value="Tunda" type="radio" ng-model="StatusPembayaran" ng-click="ProsesBayar()" disabled/>
+                                                <i style="color: black;">Tunda</i>
+                                            </div>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">Detail</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Nomor Kamar</th>
+                                                <th style="width: 40px">Keterangan</th>
+                                                <th>Harga</th>
+                                            </tr>
+                                            <tr ng-repeat="item in DataPesanan.Kamar">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{item.NomorKamar}}</td>
+                                                <td>{{item.Description}}</td>
+                                                <td>{{item.Harga | currency: "Rp. "}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <b>Total</b>
+                                                </td>
+                                                <td>{{BiayaKamar | currency: "Rp. "}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">Biodata</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input id="Nama" type="text" class="form-control" ng-model="DataPesanan.NamaCustomer" placeholder="Nama" disabled/>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            <input id="Kontak" type="text" class="form-control" ng-model="DataPesanan.Kontak" placeholder="Kontak" disabled/>
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                            <textarea id="Alamat" class="form-control" rows="3" ng-model="DataPesanan.Alamat" placeholder="Alamat" disabled></textarea>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input type="email" class="form-control" ng-model="DataPesanan.Email" placeholder="Email" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">Pembayaran</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <i class="col-sm-4">Biaya Kamar : &nbsp;</i>
+                                            <div class="col-sm-6">
+                                                : &nbsp;{{BiayaKamar | currency: "Rp. "}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="border-bottom: black;">
+                                            <i class="col-sm-4">Pajak 10% : &nbsp;</i>
+                                            <div class="col-sm-6">
+                                                : &nbsp;<u>{{tax | currency: "Rp. "}}</u>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <i class="col-sm-4"><b>Total</b></i>
+                                            <div class="col-sm-6">
+                                                : &nbsp;<b>{{TotalBayar | currency: "Rp. "}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button ng-show="DataPesanan.Status=='Waiting'" type="submit" class="btn btn-primary bg-purple" data-dismiss="modal" ng-click="ProsesCheckin()">Checkin</button>
+                <button ng-show="DataPesanan.Status=='Checkin'" type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="ProsesCheckin()">Checkout</button>
+                <a href="apps/Views/invoice-print.html" target="_blank" ng-show="DataPesanan.Status=='Checkout' || DataPesanan.Status=='Checkin'" type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="ProsesPrint()"><i class="fa fa-print"></i> Print</a>
+            </div>
+        </div>
+    </div>
+</div>

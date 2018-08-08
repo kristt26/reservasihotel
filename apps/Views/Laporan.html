@@ -1,0 +1,88 @@
+<div class="row" ng-init="Init()">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Laporan Reservasi Hotel Permata</h3>
+            </div>
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="" data-toggle="tab" data-target="#tab_1">Harian</a></li>
+                        <li><a href="" data-toggle="tab" data-target="#tab_2">Laporan Keseluruhan</a></li>
+                        <!-- <li><a href="" data-toggle="tab" data-target="#tab_3">Tahun</a></li> -->
+                        <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <table datatable="ng" id="zero_config" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Kode Boking</th>
+                                        <th>Nama</th>
+                                        <th>Kontak</th>
+                                        <th>Checkin</th>
+                                        <th>Checkout</th>
+                                        <th class="center-align">Total Bayar<br>Rp.</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Item in  DatasLaporan">
+                                        <td>{{Item.KodePesanan}}</td>
+                                        <td>{{Item.NamaCustomer}}</td>
+                                        <td>{{Item.Kontak}}</td>
+                                        <td>{{Item.TanggalCheckin}}</td>
+                                        <td>{{Item.TanggalCheckout}}</td>
+                                        <td align="right">{{Item.TotalBayar | currency: ""}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <td colspan="5" style="text-align: center;"><b> Total</b></td>
+                                    <td align="right"><b>{{Total | currency: ""}}</b></td>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_2">
+                            <table datatable="ng" id="zero_config" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Kode Boking</th>
+                                        <th>Nama</th>
+                                        <th>Kontak</th>
+                                        <th>Checkin</th>
+                                        <th>Checkout</th>
+                                        <th class="center-align">Total Bayar<br>Rp.</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="value in DatasKeseluruhan">
+                                        <td>{{value.KodePesanan}}</td>
+                                        <td>{{value.NamaCustomer}}</td>
+                                        <td>{{value.Kontak}}</td>
+                                        <td>{{value.TanggalCheckin}}</td>
+                                        <td>{{value.TanggalCheckout}}</td>
+                                        <td align="right">{{value.TotalBayar | currency: ""}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <td colspan="5" style="text-align: center;"><b> Total</b></td>
+                                    <td align="right"><b>{{TotalKeseluruhan | currency: ""}}</b></td>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <!-- <div class="tab-pane" id="tab_3">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                            recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </div> -->
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div

@@ -6,11 +6,11 @@ class Pesanan
     public $IdPesanan;
     public $KodePesanan;
     public $IdCustomer;
-    public $IdKamar;
     public $TanggalPesan;
     public $TanggalCheckin;
     public $TanggalCheckout;
     public $Status;
+    public $Pembayaran;
     public function __construct($db) {
         $this->conn = $db;
     }
@@ -23,9 +23,8 @@ class Pesanan
     }
     public function readByStatus()
     {
-        $query = "SELECT * FROM ". $this->table_name." WHERE IdKamar=:IdKamar and ((TanggalCheckin>=:TanggalCheckin and TanggalCheckin<=:TanggalCheckout) or (TanggalCheckout>=:TanggalCheckin and TanggalCheckout<=:TanggalCheckout))";
+        $query = "SELECT * FROM ". $this->table_name." WHERE (TanggalCheckin>=:TanggalCheckin and TanggalCheckin<=:TanggalCheckout) or (TanggalCheckout>=:TanggalCheckin and TanggalCheckout<=:TanggalCheckout)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":IdKamar", $this->IdKamar);
         $stmt->bindParam(":TanggalCheckin", $this->TanggalCheckin);
         $stmt->bindParam(":TanggalCheckout", $this->TanggalCheckout);
         $stmt->execute();
@@ -40,24 +39,24 @@ class Pesanan
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->KodePesanan = $row["KodePesanan"];
         $this->IdCustomer = $row["IdCustomer"];
-        $this->IdKamar = $row["IdKamar"];
         $this->TanggalPesan = $row["TanggalPesan"];
         $this->TanggalCheckin = $row["TanggalCheckin"];
         $this->TanggalCheckout = $row["TanggalCheckout"];
         $this->Status = $row["Status"];
+        $this->Pembayaran = $row["Pembayaran"];
     }
     public function create()
     {
-        $query = "INSERT INTO ".$this->table_name." SET KodePesanan=?, IdCustomer=?, IdKamar=?, TanggalPesan=?, TanggalCheckin=?, TanggalCheckout=?, Status=?";
+        $query = "INSERT INTO ".$this->table_name." SET KodePesanan=?, IdCustomer=?, TanggalPesan=?, TanggalCheckin=?, TanggalCheckout=?, Status=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->KodePesanan);
         $stmt->bindParam(2, $this->IdCustomer);
-        $stmt->bindParam(3, $this->IdKamar);
-        $stmt->bindParam(4, $this->TanggalPesan);
-        $stmt->bindParam(5, $this->TanggalCheckin);
-        $stmt->bindParam(6, $this->TanggalCheckout);
-        $stmt->bindParam(7, $this->Status);
+        $stmt->bindParam(3, $this->TanggalPesan);
+        $stmt->bindParam(4, $this->TanggalCheckin);
+        $stmt->bindParam(5, $this->TanggalCheckout);
+        $stmt->bindParam(6, $this->Status);
         if($stmt->execute()){
+            $this->IdPesanan = $this->conn->lastInsertId();
             return true;
         }else {
             return false;
@@ -65,13 +64,11 @@ class Pesanan
     }
     public function update()
     {
-        $query = "UPDATE ".$this->table_name." SET IdCustomer=?, IdKamar=?, TanggalPesan=?, TanggalCheckin=?, TanggalCheckout=?, Status=? WHERE IdPesanan=?";
+        $query = "UPDATE ".$this->table_name." SET Status=?, Pembayaran=? WHERE IdPesanan=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->Kontak);
-        $stmt->bindParam(2, $this->Alamat);
-        $stmt->bindParam(3, $this->Sex);
-        $stmt->bindParam(4, $this->Email);
-        $stmt->bindParam(5, $this->IdPesanan);
+        $stmt->bindParam(1, $this->Status);
+        $stmt->bindParam(2, $this->Pembayaran);
+        $stmt->bindParam(3, $this->IdPesanan);
         if($stmt->execute())
         {
             return true;
