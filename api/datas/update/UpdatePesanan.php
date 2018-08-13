@@ -17,22 +17,20 @@ $dbgammu = $gammu->getConnection();
 $pesanan = new Pesanan($db);
 $sendsms = new SendSMS($dbgammu);
 $data =json_decode(file_get_contents("php://input"));
+$sendsms->SendingDateTime = $pesanan->TanggalCheckout . " 12:00:00";
+$sendsms->DestinationNumber = $data->Kontak;
+$sendsms->TextDecoded = "Hotel Permata: \r\n Batas menginap anda berakhir pada: " . $pesanan->TanggalCheckout . "Jam " . "12:00 WIT, " . "\r\n TERIMA KASIH";
+$sendsms->CreatorID = "Hotel Permata";
+$sendsms->createOut();
 if($data->StatusBayar=="Bayar"){
     if($data->Status=="Waiting"){
         $pesanan->IdPesanan = $data->IdPesanan;
         $pesanan->Status="Checkin";
         $pesanan->Pembayaran="true";
         if($pesanan->update()){
-            $sendsms->SendingDateTime = $pesanan->TanggalCheckout . " 12:00:00";
-            $sendsms->DestinationNumber = $data->Kontak;
-            $sendsms->TextDecoded = "Hotel Permata: \r\n Batas menginap anda berakhir pada: " . $pesanan->TanggalCheckout . "Jam " . "12:00 WIT, " . "\r\n TERIMA KASIH";
-            $sendsms->CreatorID = "Hotel Permata";
-            if($sendsms->createOut())
-            {
-                $_SESSION["Data"] = $data;
-                $response=array("Message"=>"Success", "Status" => $pesanan->Status);
-                echo json_encode($response);
-            }
+            $_SESSION["Data"] = $data;
+            $response=array("Message"=>"Success", "Status" => $pesanan->Status);
+             
         }else {
             $response=array("Message"=>"Gagal");
             echo json_encode($response);
@@ -59,16 +57,9 @@ if($data->StatusBayar=="Bayar"){
         $pesanan->Status="Checkin";
         $pesanan->Pembayaran="false";
         if($pesanan->update()){
-            $sendsms->SendingDateTime = $pesanan->TanggalCheckout . " 12:00:00";
-            $sendsms->DestinationNumber = $data->Kontak;
-            $sendsms->TextDecoded = "Hotel Permata: \r\n Batas menginap anda berakhir pada: " . $pesanan->TanggalCheckout . "Jam " . "12:00 WIT, " . "\r\n TERIMA KASIH";
-            $sendsms->CreatorID = "Hotel Permata";
-            if($sendsms->createOut())
-            {
                 $_SESSION["Data"] = $data;
                 $response=array("Message"=>"Success", "Status" => $pesanan->Status);
                 echo json_encode($response);
-            }
         }else {
             $response=array("Message"=>"Gagal");
             echo json_encode($response);

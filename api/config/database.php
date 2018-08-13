@@ -6,6 +6,12 @@ class Database{
     private $password = "";
     public $conn;
 
+    // private $host = "den1.mysql2.gear.host";
+    // private $db_name = "reservasihotel";
+    // private $username = "reservasihotel";
+    // private $password = "Ii2~_2659F84";
+    // public $conn;
+
     // get the database connection
     public function getConnection(){
  

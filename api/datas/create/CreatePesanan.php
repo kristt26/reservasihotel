@@ -64,12 +64,9 @@ if($customer->create()){
         $sendsms->CreatorID = "Hotel Permata";
         if($sendsms->createBoking())
         {
-            $sendsms->TextDecoded = "Hotel Permata: \r\n Batas menginap anda berakhir pada: " . $pesanan->TanggalCheckout . "Jam " . "12:00 WIT, " . "\r\n TERIMA KASIH";
-            if($sendsms->createOut())
-            {
-                $response=array("status"=>1,"message"=>"Success");
-                echo json_encode($response);
-            }
+            $response=array("status"=>1,"message"=>"Success");
+            echo json_encode($response);
+           
         }
         
     }

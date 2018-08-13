@@ -6,6 +6,12 @@ class Gammu{
     private $password = "";
     public $conn;
 
+    // private $host = "den1.mysql4.gear.host";
+    // private $db_name = "gammu";
+    // private $username = "gammu";
+    // private $password = "Tl0V1~-k7UhD";
+    // public $conn;
+
     // get the database connection
     public function getConnection(){
  
