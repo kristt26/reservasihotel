@@ -11,6 +11,33 @@ angular.module("Ctrl", ['datatables', 'datatables.buttons'])
         //         alert(error.message);
         //     })
     })
+    .controller("KontakController", function($scope, $http) {
+        // $scope.DatasKamar = [];
+        // $http({
+        //         method: "GET",
+        //         url: "api/datas/read/ReadKamar.php"
+        //     })
+        //     .then(function(response) {
+        //         $scope.DatasKamar = response.data.record;
+        //     }, function(error) {
+        //         alert(error.message);
+        //     })
+    })
+    .controller("SignOutController", function($scope, $http) {
+        $scope.LogOut = function() {
+            $http({
+                    method: "GET",
+                    url: "api/datas/read/SignOut.php",
+                })
+                .then(function(response) {
+                    if (response.data.message == "true") {
+                        window.location.href = "index.html";
+                    }
+                }, function(error) {
+                    alert(error);
+                })
+        }
+    })
     .controller("ReservasiController", function($scope, $http) {
         $scope.Biodata = {};
         $scope.Biodata.Kamar = [];
@@ -111,7 +138,7 @@ angular.module("Ctrl", ['datatables', 'datatables.buttons'])
                 })
                 .then(function(response) {
                     if (response.data.Message == "Success") {
-                        window.location.href = "../admin.html";
+                        window.location.href = "../admin.html#!/Home";
                     }
 
                 }, function(error) {

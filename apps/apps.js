@@ -29,7 +29,11 @@ var app = angular.module("apps", ["ngRoute", "Ctrl", "datatables", "datatables.b
                 templateUrl: "apps/Views/Laporan.html",
                 controller: "LaporanController"
             })
-            .otherwise({ redirectTo: '' });
+            .when("/Kontak", {
+                templateUrl: "apps/Views/Kontak.html",
+                controller: "KontakController"
+            })
+            .otherwise({ redirectTo: '/Beranda' });
     })
     .directive('currencyInput', function($filter, $browser) {
         return {
